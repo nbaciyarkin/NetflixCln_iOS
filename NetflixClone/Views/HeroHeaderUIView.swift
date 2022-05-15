@@ -12,7 +12,6 @@ class HeroHeaderUIView: UIView {
     
     
     private let downloadButton: UIButton = {
-        
         let button = UIButton()
         button.setTitle("Download", for: .normal)
         button.layer.borderColor = UIColor.white.cgColor
@@ -24,7 +23,6 @@ class HeroHeaderUIView: UIView {
     }()
     
     private let playButon: UIButton = {
-        
         let button = UIButton()
         button.setTitle("Play", for: .normal)
         button.layer.borderColor = UIColor.white.cgColor
@@ -36,7 +34,6 @@ class HeroHeaderUIView: UIView {
     }()
     
     private let heroImageView: UIImageView = {
-       
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
@@ -53,9 +50,7 @@ class HeroHeaderUIView: UIView {
         ]
         gradientLayer.frame = bounds
         layer.addSublayer(gradientLayer)
-        
     }
-    //
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -66,7 +61,6 @@ class HeroHeaderUIView: UIView {
         addGradient()
     }
     private func applyConstraints(){
-        
         let playButtonConstraints = [
             playButon.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 70),
             playButon.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -50),
@@ -79,15 +73,15 @@ class HeroHeaderUIView: UIView {
             downloadButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -50),
             downloadButton.widthAnchor.constraint(equalToConstant: 120)
         ]
-        
         NSLayoutConstraint.activate(downloadButtonConstraints)
-        
-        
-        
     }
     
     
-
+    public func configure(with model: TitleViewModel) {
+        guard let url = URL(string: "https://image.tmdb.org/t/p/w500/\(model.posterUrl)") else {return}
+        heroImageView.sd_setImage(with: url, completed: nil)
+    }
+    
     override func layoutSubviews() {
         heroImageView.frame = bounds
     }
@@ -95,7 +89,4 @@ class HeroHeaderUIView: UIView {
     required init?(coder: NSCoder) {
         fatalError()
     }
-
-    
-    
 }
